@@ -1,21 +1,24 @@
+import Analyser from "./Analyser.vue"
+
 export default {
   name: "Home",
+  components: {Analyser},
   data() {
     return {
-      audioCTX: null,
+      audioURL: null,
     }
   },
-  mounted() {
-    // Fetch context
-    const AudioContext = window.AudioContext || window.webkitAudioContext
-    this.audioCTX = new AudioContext()
-  },
   methods: {
-    uploadAudio() {
-      console.log(setupSample)
+    uploadAudio(file) {
+      this.audioURL = URL.createObjectURL(file)
+      this.loadIntoPlayer()
+    },
+    loadIntoPlayer() {
+      this.$refs.audioPlayer.load()
     },
   },
 }
+
 async function getFile(audioContext, filepath) {
   const response = await fetch(filepath)
   const arrayBuffer = await response.arrayBuffer()

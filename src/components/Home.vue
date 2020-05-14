@@ -15,24 +15,39 @@
       </v-row>
 
       <v-row class="upload-area">
-        <v-btn
-        tag="label">
-          <input
-            type="file"
-            class="upload-audio"
-            accept="audio/*"
-            @change="uploadAudio($event.target.files[0])"
-          />
-          Upload Audio
-          <span>&#42;</span>
-        </v-btn>
+        <v-flex md-6>
+          <v-row align-start>
+            <v-btn tag="label">
+              <input
+                type="file"
+                class="upload-audio"
+                accept="audio/*"
+                @change="uploadAudio($event.target.files[0])"
+              />
+              Upload Audio
+              <span>&#42;</span>
+            </v-btn>
+          </v-row>
+        </v-flex>
+        <v-flex md-6>
+          <v-row align-start>
+            <audio id="audioPlayer" ref="audioPlayer" controls>
+              <source :src="audioURL" />
+            </audio>
+          </v-row>
+        </v-flex>
       </v-row>
       <v-row>
         <h1 class="asterisk-text body-2">
           <span>&#42;</span>: the file will never leave your computer
         </h1>
       </v-row>
+      <v-row class="mt-4"></v-row>
+      <v-divider></v-divider>
     </v-col>
+    <v-row>
+      <Analyser :audioURL="audioURL"></Analyser>
+    </v-row>
   </v-container>
 </template>
 
@@ -55,6 +70,6 @@
 }
 
 .upload-audio {
-  display: none
+  display: none;
 }
 </style>

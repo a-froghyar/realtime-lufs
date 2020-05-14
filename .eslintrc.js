@@ -13,7 +13,7 @@ module.exports = {
     "semi": [2,"never"],
     'array-bracket-spacing': ['error', 'never'],
     'object-curly-spacing': ['error', 'never'],
-    'no-unused-vars': ['error', {args: 'after-used'}],
+    'no-unused-vars': "off",
     'dot-notation': 'off'
   }
 };

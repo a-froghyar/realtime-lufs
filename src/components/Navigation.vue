@@ -1,28 +1,48 @@
 <template>
-  <v-app-bar app class="nav-bar" color="primary" dark>
-    <div class="nav-elements align-center">
-      <div>
-        <v-btn icon to="/" rounded class="menu-button" id="no-background-hover">
-          <v-icon color="black" large>fiber_manual_record</v-icon>
-        </v-btn>
-      </div>
-      <v-btn icon to="/about" class="menu-button" id="no-background-hover">
-        <v-icon color="black" x-large>stop</v-icon>
-      </v-btn>
-    </div>
-  </v-app-bar>
+  <v-navigation-drawer
+    v-model="drawer"
+    :mini-variant="mini"
+    permanent
+    fixed
+    :disable-resize-watcher="true"
+    :disable-route-watcher="true"
+  >
+    <v-list>
+      <v-list-item v-for="item in items" :key="item.title" link :ripple="false">
+        <v-list-item-icon>
+          <v-btn
+            icon
+            rounded
+            color="primary"
+            id="no-background-hover"
+            :to="item.to"
+            class="menu-button"
+          >
+            <v-icon large>{{ item.icon }}</v-icon>
+          </v-btn>
+        </v-list-item-icon>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      drawer: true,
+      items: [
+        {title: "Home", icon: "fiber_manual_record", to: "/"},
+        {title: "About", icon: "stop", to: "/about"}
+      ],
+      mini: true
+    }
+  }
+}
+</script>
 
 
 <style scoped>
-.nav-elements {
-  padding-top: 60px;
-}
-.nav-bar {
-  width: 70px;
-  height: -webkit-fill-available !important;
-}
-
 .menu-button {
   right: 9px;
 }
