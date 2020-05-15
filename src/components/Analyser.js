@@ -6,14 +6,12 @@ let counter = 0
 let text
 
 export default {
-  props: ["audioURL"],
+  props: ["audioURL", "sourceNode"],
   data() {
     return {
       runAnalysis: false,
-      buttonLabel: "Start Analysis",
       initiated: false,
       audioCTX: null,
-      sourceNode: null,
     }
   },
   methods: {
@@ -25,16 +23,8 @@ export default {
       }
     },
     initContext() {
-      // Fetch and sync context with Tone
-      const AudioContext = window.AudioContext || window.webkitAudioContext
-      this.audioCTX = new AudioContext()
-      Tone.setContext(this.audioCTX)
-
-      // Create source node
-      const playerElement = document.getElementById("audioPlayer")
-      this.sourceNode = this.audioCTX.createMediaElementSource(playerElement)
-
-      this.initiated = true
+      // Fetch context with Tone
+      this.audioCTX = Tone.context._context
     },
     stopAnalysis() {
       this.runAnalysis = false
@@ -46,10 +36,6 @@ export default {
         alert("You need to upload an audio file first!")
         return
       }
-
-    //   if (!this.runAnalysis) {
-    //     return
-    //   }
 
       if (!this.initiated) {
         this.initContext()
@@ -134,9 +120,6 @@ export default {
       Tone.connect(waveFormNode, highShelfFilter)
       Tone.connect(highShelfFilter, highPassFilter)
       Tone.connect(highPassFilter, meter)
-
-      // Send source to master to hear audio
-      FFT.toMaster()
 
       // Define LUFS worker
       const lufsWorker = new LUFSWorker()

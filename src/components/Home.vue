@@ -49,7 +49,9 @@
     <v-divider></v-divider>
     <v-row>
       <v-container>
-        <Analyser :audioURL="audioURL"></Analyser>
+        <Analyser 
+        :sourceNode="sourceNode"
+        :audioURL="audioURL"></Analyser>
       </v-container>
     </v-row>
   </v-container>

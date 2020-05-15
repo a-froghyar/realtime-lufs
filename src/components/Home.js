@@ -1,4 +1,5 @@
 import Analyser from "./Analyser.vue"
+import Tone from "tone"
 
 export default {
   name: "Home",
@@ -6,28 +7,30 @@ export default {
   data() {
     return {
       audioURL: null,
+      sourceNode: null,
+      audioCTX: null,
     }
+  },
+  mounted() {
+    // Fetch Context
+    const AudioContext = window.AudioContext || window.webkitAudioContext
+    this.audioCTX = new AudioContext()
+    Tone.setContext(this.audioCTX)
   },
   methods: {
     uploadAudio(file) {
       this.audioURL = URL.createObjectURL(file)
-      this.loadIntoPlayer()
-    },
-    loadIntoPlayer() {
       this.$refs.audioPlayer.load()
+      this.audioCTX.resume().then(() => {
+        console.log("Audio Context Initialised!")
+      })
+      this.createSourceNode()
+    },
+    createSourceNode() {
+      const playerElement = document.getElementById("audioPlayer")
+      this.sourceNode = this.audioCTX.createMediaElementSource(playerElement)
+      // Connect to master
+      this.sourceNode.connect(this.audioCTX.destination)
     },
   },
-}
-
-async function getFile(audioContext, filepath) {
-  const response = await fetch(filepath)
-  const arrayBuffer = await response.arrayBuffer()
-  const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
-  return audioBuffer
-}
-
-async function setupSample() {
-  const filePath = "dtmf.mp3"
-  const sample = await getFile(this.audioCtx, filePath)
-  return sample
 }
