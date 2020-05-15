@@ -18,8 +18,11 @@ export default {
   },
   methods: {
     toggleAnalysis() {
-      this.runAnalysis = !this.runAnalysis
-      this.startAnalysis()
+      if (!this.runAnalysis) {
+        this.startAnalysis()
+      } else {
+        this.stopAnalysis()
+      }
     },
     initContext() {
       // Fetch and sync context with Tone
@@ -33,15 +36,20 @@ export default {
 
       this.initiated = true
     },
+    stopAnalysis() {
+      this.runAnalysis = false
+      counter = 0
+    },
     startAnalysis() {
+      this.runAnalysis = true
       if (!this.audioURL) {
         alert("You need to upload an audio file first!")
         return
       }
 
-      if (!this.runAnalysis) {
-        return
-      }
+    //   if (!this.runAnalysis) {
+    //     return
+    //   }
 
       if (!this.initiated) {
         this.initContext()
