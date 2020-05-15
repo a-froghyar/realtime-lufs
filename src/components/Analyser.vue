@@ -104,24 +104,44 @@
 }
 
 .rms-meter {
-  /* transform: rotate(270deg) scale(3); */
   width: 150px;
-  /* margin-left: 45px; */
+  height: 1px;
 }
 
 meter::-webkit-meter-optimum-value {
   box-shadow: 0 5px 5px -5px #999 inset;
   background-image: linear-gradient(
     90deg,
-    #5d6675 5%,
-    #556072 5%,
-    #4d5666f6 15%,
-    #4b5464 15%,
-    #363f4d 55%,
-    #2e3847 55%,
-    #242d3b 95%,
-    #242d3b 95%,
-    #242d3b 100%
+    #ebebeb 5%,
+    #ebebeb 5%,
+    #cacaca 15%,
+    #cacaca 15%,
+    #8d8d8d 55%,
+    #8d8d8d 55%,
+    #575757 95%,
+    #575757 95%,
+    #363636 100%
+  );
+  background-size: 100% 100%;
+}
+
+meter::-webkit-meter-bar {
+  background: #e4e4e4;
+}
+
+meter::-moz-meter-optimum-value {
+  box-shadow: 0 5px 5px -5px #999 inset;
+  background-image: linear-gradient(
+    90deg,
+    #ebebeb 5%,
+    #ebebeb 5%,
+    #cacaca 15%,
+    #cacaca 15%,
+    #8d8d8d 55%,
+    #8d8d8d 55%,
+    #575757 95%,
+    #575757 95%,
+    #363636 100%
   );
   background-size: 100% 100%;
 }

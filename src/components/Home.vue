@@ -46,7 +46,7 @@
       </v-row>
       <v-row class="mt-1"></v-row>
     </v-col>
-    <v-divider></v-divider>
+    <v-divider class="divider"></v-divider>
     <v-row>
       <v-container>
         <Analyser 
@@ -81,5 +81,9 @@
 
 .subtitle-text {
   text-align: left;
+}
+
+.divider {
+  width: 80%;
 }
 </style>

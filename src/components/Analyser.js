@@ -42,9 +42,9 @@ export default {
       }
       // FFT Container Values
       const FFTContainer = document.getElementById("FFT")
-      FFTContainer.width = 1500
+      FFTContainer.width = 1620
       FFTContainer.height = 500
-      FFTContainer.style.width = "750px" // for better quality rendering
+      FFTContainer.style.width = "810px" // for better quality rendering
       FFTContainer.style.height = "250px"
       const xAxisLogBins = []
       const FFTCtx = FFTContainer.getContext("2d")
