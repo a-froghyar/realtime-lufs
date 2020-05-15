@@ -1,11 +1,11 @@
 <template>
   <v-container fluid class="main-container">
-    <v-col cols="12">
+    <v-col cols="12" :md="12">
       <v-row class="title-text">
         <h1 class="display-4">Real Time LUFS Loudness Meter</h1>
       </v-row>
       <v-row>
-        <h1 class="title">
+        <h1 class="subtitle-text title">
           Based on the
           <a
             color="black"
@@ -16,21 +16,23 @@
 
       <v-row class="upload-area">
         <v-flex md-6>
-          <v-row align-start>
-            <v-btn tag="label">
-              <input
-                type="file"
-                class="upload-audio"
-                accept="audio/*"
-                @change="uploadAudio($event.target.files[0])"
-              />
-              Upload Audio
-              <span>&#42;</span>
-            </v-btn>
-          </v-row>
+          <v-container>
+            <v-row align-start>
+              <v-btn tag="label">
+                <input
+                  type="file"
+                  class="upload-audio"
+                  accept="audio/mp3, audio/wav"
+                  @change="uploadAudio($event.target.files[0])"
+                />
+                Upload Audio
+                <span>&#42;</span>
+              </v-btn>
+            </v-row>
+          </v-container>
         </v-flex>
         <v-flex md-6>
-          <v-row align-start>
+          <v-row align-start justify-center>
             <audio id="audioPlayer" ref="audioPlayer" controls>
               <source :src="audioURL" />
             </audio>
@@ -42,11 +44,13 @@
           <span>&#42;</span>: the file will never leave your computer
         </h1>
       </v-row>
-      <v-row class="mt-4"></v-row>
-      <v-divider></v-divider>
+      <v-row class="mt-1"></v-row>
     </v-col>
+    <v-divider></v-divider>
     <v-row>
-      <Analyser :audioURL="audioURL"></Analyser>
+      <v-container>
+        <Analyser :audioURL="audioURL"></Analyser>
+      </v-container>
     </v-row>
   </v-container>
 </template>
@@ -71,5 +75,9 @@
 
 .upload-audio {
   display: none;
+}
+
+.subtitle-text {
+  text-align: left;
 }
 </style>

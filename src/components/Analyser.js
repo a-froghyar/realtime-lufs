@@ -1,5 +1,9 @@
 import Tone from "tone"
+import LUFSWorker from "../workers/lufs.worker"
+
 let FFT_SIZE = 2048
+let counter = 0
+let text
 
 export default {
   props: ["audioURL"],
@@ -42,14 +46,12 @@ export default {
       if (!this.initiated) {
         this.initContext()
       }
-
+      // FFT Container Values
       const FFTContainer = document.getElementById("FFT")
       FFTContainer.width = 1500
       FFTContainer.height = 500
-      FFTContainer.style.width = "750px"
+      FFTContainer.style.width = "750px" // for better quality rendering
       FFTContainer.style.height = "250px"
-
-      // FFT Container Values
       const xAxisLogBins = []
       const FFTCtx = FFTContainer.getContext("2d")
       const FFTCtxHeight = FFTCtx.canvas.height
@@ -61,8 +63,6 @@ export default {
       const FFTpaddingBottom = 50
       // scale up values for quicker movement
       const FFTscaler = 4
-      // [px] - shift values up the canvas for better visibility
-      const FFTyAxisShift = 0
       FFTCtx.font = "30px Avenir"
       FFTCtx.fillStyle = "black"
       FFTCtx.textAlign = "center"
@@ -97,7 +97,7 @@ export default {
 
       // create the two stage filter process and init meter to fetch values
       const waveFormNode = new Tone.Waveform(FFT_SIZE)
-      const meter = new Tone.Meter(FFT_SIZE)
+      const meter = new Tone.Waveform(FFT_SIZE)
 
       const highShelfBvalues = [
         1.53512485958697,
@@ -130,6 +130,9 @@ export default {
       // Send source to master to hear audio
       FFT.toMaster()
 
+      // Define LUFS worker
+      const lufsWorker = new LUFSWorker()
+
       // Schedule Loop
       const scheduleAnalyser = () => {
         if (!this.runAnalysis) {
@@ -147,15 +150,63 @@ export default {
           FFTCtx.moveTo(xAxisLogBins[i], FFTCtxHeight - FFTpaddingBottom)
           FFTCtx.lineTo(
             xAxisLogBins[i],
-            Math.min(
-              0 - FFTscaler * bin - FFTyAxisShift,
-              FFTCtxHeight - FFTpaddingBottom
-            )
+            Math.min(0 - FFTscaler * bin, FFTCtxHeight - FFTpaddingBottom)
           )
           FFTCtx.stroke()
         })
-      }
 
+        // RMS
+
+        const waveFormValue = waveFormNode.getValue()
+
+        // Compute average power over the interval
+        let sumOfSquares = 0
+        for (let i = 0; i < waveFormValue.length; i++) {
+          sumOfSquares += waveFormValue[i] ** 2
+        }
+        // Normalised RMS - this value is normalised to a 997 Hz Sine Wave at 0dbFS
+        // More info: https://en.wikipedia.org/wiki/DBFS
+        const normalisationFactor = 3.01
+        const RMSPowerDecibels =
+          20 * Math.log10(Math.sqrt(sumOfSquares / waveFormValue.length)) +
+          normalisationFactor
+        displayNumber("RMS", RMSPowerDecibels, counter)
+
+        // LUFS
+        const filteredSignal = meter.getValue()
+
+        // Init the worker
+        if (counter === 0) {
+          lufsWorker.postMessage({
+            messageType: "init",
+            FFT_SIZE: FFT_SIZE,
+            counter: counter,
+            FS: this.audioCTX.sampleRate,
+          })
+        }
+
+        // Fill up the analysis buffer
+        if (counter !== 0) {
+          lufsWorker.postMessage({
+            messageType: "fillBuffer",
+            filteredSignal: filteredSignal,
+            counter: counter,
+          })
+        }
+
+        // Receive back calculation from worker
+        lufsWorker.onmessage = (e) => {
+          if (e.data.returnMessageType === "integratedCalculated") {
+            const integratedLoudness = e.data.integratedLoudness
+            displayNumber("LUFSIntegrated", integratedLoudness)
+          }
+          if (e.data.returnMessageType === "shortTermCalculated") {
+            const shortTermLoudness = e.data.shortTermLoudness
+            displayNumber("LUFSShort", shortTermLoudness, counter)
+          }
+        }
+        counter++
+      }
       scheduleAnalyser()
     },
   },
@@ -163,11 +214,6 @@ export default {
 
 // Convert linear scale to log scale for the canvas
 function getXAxisLogScale(FFT_SIZE, canvasWidth, bin, freq) {
-  /**
-   * TODO: maxLog needs be programmed for  sampleRate/2, however
-   * webaudio's analysernode outputs values between 0 and 22050 Hz.
-   * Need to deal with aliasing coming from the 24 kHz context.
-   */
   const minLog = Math.log10(20)
   const maxLog = Math.log10(22050)
 
@@ -181,4 +227,23 @@ function getXAxisLogScale(FFT_SIZE, canvasWidth, bin, freq) {
 
   // Rounding to avoid decimal pixel values
   return Math.round(bandWidth * (Math.log10(freq) - minLog))
+}
+
+function displayNumber(id, value, counter) {
+  const meter = document.getElementById(id + "-level")
+  if (counter) {
+    // Slow down the display of numerical values:
+    // Set a threshold for refreshing the display of the numerical
+    // value based on the counter (counting per refresh rate) and
+    // the arbitrary value of 50 defined below
+    if (counter % 50 === 0) {
+      text = document.getElementById(id + "-level-text")
+      text.textContent = value.toFixed(2)
+    }
+    meter.value = isFinite(value) ? value : meter.min
+  } else {
+    text = document.getElementById(id + "-level-text")
+    text.textContent = value.toFixed(2)
+    meter.value = isFinite(value) ? value : meter.min
+  }
 }
