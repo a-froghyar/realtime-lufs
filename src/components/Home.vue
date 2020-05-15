@@ -58,32 +58,3 @@
 </template>
 
 <script src="./Home.js"></script>
-<style>
-.main-container {
-  margin-left: 79px;
-}
-
-.title-text {
-  text-align: left;
-}
-
-.upload-area {
-  margin-top: 50px;
-}
-
-.asterisk-text {
-  margin-top: 5px;
-}
-
-.upload-audio {
-  display: none;
-}
-
-.subtitle-text {
-  text-align: left;
-}
-
-.divider {
-  width: 80%;
-}
-</style>

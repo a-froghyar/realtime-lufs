@@ -1,14 +1,42 @@
 <template>
-  <div>
-    <h1>About</h1>
-    <p>Here is some information. This is the about page</p>
-  </div>
+  <v-container fluid class="main-container">
+    <v-col cols="12" :md="12">
+      <v-row class="title-text">
+        <h1 class="display-4">About</h1>
+      </v-row>
+      <v-row>
+        <h1 class="subtitle-text title">Read more about the LUFS standard here:</h1>
+      </v-row>
+    </v-col>
+    <v-divider class="mt-4 divider"></v-divider>
+
+    <v-container>
+      <v-row>
+        <v-flex md-6>
+          <v-container>
+            <v-row>
+              <a href="https://github.com/a-froghyar/frghr-lufs" target="_blank">
+                <img class="logo" src=".././assets/github.png" />
+              </a>
+            </v-row>
+          </v-container>
+        </v-flex>
+        <v-flex md-6>
+          <v-container>
+            <v-row>
+              <a href="https://www.linkedin.com/in/adam-froghyar/" target="_blank">
+                <img class="logo" src=".././assets/linkedin.png" />
+              </a>
+            </v-row>
+          </v-container>
+        </v-flex>
+      </v-row>
+    </v-container>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: 'About' //this is the name of the component
+  name: "About" //this is the name of the component
 }
 </script>
-<style>
-</style>
