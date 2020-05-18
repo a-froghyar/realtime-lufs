@@ -13,18 +13,5 @@ export default {
   components: {
     Navigation: Navigation
   },
-
-  data: () => ({
-    //
-  })
 }
 </script>
-
-<style scoped>
-#app {
-  max-width: 1000px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
-</style>

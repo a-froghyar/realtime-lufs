@@ -1,5 +1,6 @@
 <template>
-  <v-container>
+  <v-container fluid>
+
     <v-row>
       <v-btn @click="toggleAnalysis">
         <span v-if="runAnalysis">Stop Analysis</span>
@@ -7,7 +8,8 @@
       </v-btn>
     </v-row>
 
-    <v-container>
+    <v-container fluid>
+      <v-flex lg12 md12 sm3 xs3>
         <v-row class="pt-1">
           <v-flex md-4>
             <v-row align-start>
@@ -63,10 +65,11 @@
             </v-row>
           </v-flex>
         </v-row>
+      </v-flex>
     </v-container>
 
     <v-row align-start>
-      <div class="hidden-md-and-down FFT-container">
+      <div class="hidden-sm-and-down FFT-container">
         <canvas class="FFT-canvas" id="FFT"></canvas>
       </div>
     </v-row>

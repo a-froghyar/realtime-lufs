@@ -37,6 +37,6 @@
 
 <script>
 export default {
-  name: "About" //this is the name of the component
+  name: "About" 
 }
 </script>
