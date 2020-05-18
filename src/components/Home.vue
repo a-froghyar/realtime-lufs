@@ -21,6 +21,7 @@
                 <v-row align-start>
                   <v-btn tag="label">
                     <input
+                    
                       type="file"
                       class="upload-audio"
                       accept="audio/mp3, audio/wav"
