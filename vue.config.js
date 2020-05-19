@@ -8,4 +8,7 @@ module.exports = {
       .use('worker-loader')
       .loader('worker-loader')
   },
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/realtime-lufs/'
+    : '/'
 }

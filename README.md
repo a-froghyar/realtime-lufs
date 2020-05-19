@@ -1,4 +1,4 @@
-# frghr-lufs
+# realtime-lufs
 
 ## Project setup
 ```
