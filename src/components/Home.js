@@ -21,14 +21,21 @@ export default {
     uploadAudio(file) {
       this.audioURL = URL.createObjectURL(file)
       this.$refs.audioPlayer.load()
-      this.audioCTX.resume().then(() => {
-        console.log("Audio Context Initialised!")
-      })
-      this.createSourceNode()
+      if (!this.sourceNode) {
+        this.audioCTX.resume().then(() => {
+          console.log("Audio Context Initialised!")
+        })
+        this.createSourceNode()
+      } else {
+        this.connectSourceNode()
+      }
     },
     createSourceNode() {
       const playerElement = document.getElementById("audioPlayer")
       this.sourceNode = this.audioCTX.createMediaElementSource(playerElement)
+      this.connectSourceNode()
+    },
+    connectSourceNode() {
       // Connect to master
       this.sourceNode.connect(this.audioCTX.destination)
     },
