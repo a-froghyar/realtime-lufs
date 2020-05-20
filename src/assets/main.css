@@ -1,5 +1,5 @@
 #app {
-  font-family: "Avenir" !important;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   max-width: 1000px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
