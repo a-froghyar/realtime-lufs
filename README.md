@@ -2,7 +2,7 @@
 
 Real-time LUFS Loudness meter based on the [BS.1770-4](https://www.itu.int/dms_pubrec/itu-r/rec/bs/R-REC-BS.1770-4-201510-I!!PDF-E.pdf) recommendation from the International Telecommunication Union, using a ring buffer for the real-time calculation.  
 
-The project is hosted on GitHub Pages and can be accessed (here)[https://a-froghyar.github.io/realtime-lufs].
+The project is hosted on GitHub Pages and can be accessed [here](https://a-froghyar.github.io/realtime-lufs).
 
 ## Project setup
 ```
@@ -28,4 +28,4 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### References
-Some inspiration for this project came from Sebastian Zimmer's offline implementation of the calculation - (LoudEv)[https://github.com/SebastianZimmer/LoudEv]
+Some inspiration for this project came from Sebastian Zimmer's offline implementation of the calculation - [LoudEv](https://github.com/SebastianZimmer/LoudEv)
