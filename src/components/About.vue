@@ -4,9 +4,6 @@
       <v-row class="title-text">
         <h1 class="display-4">About</h1>
       </v-row>
-      <v-row>
-        <h1 class="subtitle-text title">Read more about the LUFS standard here:</h1>
-      </v-row>
     </v-col>
     <v-divider class="mt-4 divider"></v-divider>
 
