@@ -16,12 +16,11 @@
         </v-row>
         <v-flex lg12 md12 sm6 xs12>
           <v-row class="upload-area">
-            <v-flex md-6>
+            <v-flex md-6 class="decrease-flex">
               <v-container>
                 <v-row align-start>
                   <v-btn tag="label">
                     <input
-                    
                       type="file"
                       class="upload-audio"
                       accept="audio/mp3, audio/wav"
@@ -33,9 +32,9 @@
                 </v-row>
               </v-container>
             </v-flex>
-            <v-flex class="audio-player" md-6>
-              <v-row justify-end>
-                <audio id="audioPlayer" ref="audioPlayer" controls>
+            <v-flex md-6 class="audio-player-container">
+              <v-row justify-start>
+                <audio class="audio-player" id="audioPlayer" ref="audioPlayer" controls>
                   <source :src="audioURL" />
                 </audio>
               </v-row>
