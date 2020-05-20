@@ -2,7 +2,7 @@
 
 Real-time LUFS Loudness meter based on the [BS.1770-4](https://www.itu.int/dms_pubrec/itu-r/rec/bs/R-REC-BS.1770-4-201510-I!!PDF-E.pdf) recommendation from the International Telecommunication Union, using a ring buffer for the real-time calculation.  
 
-The project is hosted on GitHub Pages and can be accessed [here](https://a-froghyar.github.io/realtime-lufs).
+The project is hosted on GitHub Pages and can be accessed [here](https://lufs.froghyar.com).
 
 ## Project setup
 ```
