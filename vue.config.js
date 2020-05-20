@@ -9,6 +9,6 @@ module.exports = {
       .loader('worker-loader')
   },
   publicPath: process.env.NODE_ENV === 'production'
-    ? 'lufs.afroghyar.com/'
+    ? '/realtime-lufs/'
     : '/'
 }
