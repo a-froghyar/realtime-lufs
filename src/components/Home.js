@@ -39,5 +39,12 @@ export default {
       // Connect to master
       this.sourceNode.connect(this.audioCTX.destination)
     },
+    accessAudio() {
+      navigator.mediaDevices.getUserMedia({audio: true, video: false})
+      .then((stream) => {
+        this.sourceNode = this.audioCTX.createMediaStreamSource(stream)
+        this.connectSourceNode()
+      })
+    }
   },
 }

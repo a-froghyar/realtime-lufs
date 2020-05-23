@@ -32,7 +32,8 @@ export default {
     },
     startAnalysis() {
       this.runAnalysis = true
-      if (!this.audioURL) {
+      if (!this.sourceNode) {
+        this.runAnalysis = false
         alert("You need to upload an audio file first!")
         return
       }

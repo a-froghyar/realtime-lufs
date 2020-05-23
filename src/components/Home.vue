@@ -47,6 +47,19 @@
             <span>&#42;</span>: the file will never leave your computer
           </h1>
         </v-row>
+          <v-row class="mt-2">
+            <v-flex md-6 class="decrease-flex">
+              <v-container>
+                <v-row align-start>
+                  <v-btn 
+                  tag="label"
+                  @click="accessAudio">
+                    Access Computer Audio
+                  </v-btn>
+                </v-row>
+              </v-container>
+            </v-flex>
+          </v-row>
         <v-row class="mt-1"></v-row>
       </v-col>
     </v-flex>
